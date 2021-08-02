@@ -7,8 +7,32 @@ function getQueryString(params: Record<string, any>): string {
                 value.forEach(value => {
                     qs.push(`${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`);
                 });
-            } else if (typeof value === 'object' && value !== null) {
-                Object.entries(value).map(raw => qs.push(`${encodeURIComponent(key)}.${encodeURIComponent(String(raw[0]))}=${encodeURIComponent(String(raw[1]))}`));
+            } else if (typeof value === 'object') {
+                switch (key) {
+                    case 'anyof': {
+                        qs.push(`${encodeURIComponent(key)}`);
+                        if (value.fields) {
+                            qs.push(`.${encodeURIComponent(Array(value.fileds).join('.'))}`);
+                        }
+                        qs.push(`=`);
+                        if (value.value) {
+                            qs.push(`${encodeURIComponent(value.value)}`);
+                        }
+                    }
+                    default: {
+                        Object.entries(value).map(raw => {
+                            let val = '';
+                            if (raw[1] instanceof Date) {
+                                val = (raw[1] as Date).toISOString();
+                            } else if (Array.isArray(raw[1])) {
+                                val = Array(raw[1]).join(',');
+                            } else {
+                                val = String(raw[1]);
+                            }
+                            qs.push(`${encodeURIComponent(key)}.${encodeURIComponent(String(raw[0]))}=${encodeURIComponent(val)}`);
+                        });
+                    }
+                }
             } else {
                 qs.push(`${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`);
             }

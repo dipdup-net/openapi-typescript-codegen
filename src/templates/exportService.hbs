@@ -5,12 +5,21 @@
 import type { {{{this}}} } from '../models/{{{this}}}';
 {{/each}}
 {{/if}}
+import { ApiRequestOptions } from '../core/ApiRequestOptions';
 import { request as __request } from '../core/request';
-{{#if @root.useVersion}}
-import { OpenAPI } from '../core/OpenAPI';
-{{/if}}
+import { ApiOptions } from '../core/ApiOptions';
 
 export class {{{name}}} {
+
+    private readonly config: ApiOptions;
+
+    /**
+     * creates a new service
+     * @param config the configuration to use
+     */
+    public constructor(config: ApiOptions) {
+        this.config = config;
+    }
 
     {{#each operations}}
     /**
@@ -35,8 +44,44 @@ export class {{{name}}} {
     {{/each}}
      * @throws ApiError
      */
-    public static async {{{name}}}({{>parameters}}): Promise<{{>result}}> {
-        const result = await __request({
+    public async {{{name}}}({{>parameters}}): Promise<{{>result}}> {
+        const options = this.{{{name}}}ApiRequestOptions(
+            {{~#if parameters.length~}}
+            {
+            {{#each parameters}}
+                {{{name}}}: {{{name}}},
+            {{/each}}
+            }
+            {{/if}}
+        );
+        const result = await __request(options);
+        return result.body;
+    }
+
+    /**
+    {{#if deprecated}}
+     * @deprecated
+    {{/if}}
+     * **used to get the request options without making a http request**
+    {{#if summary}}
+     * {{{summary}}}
+    {{/if}}
+    {{#if description}}
+     * {{{description}}}
+    {{/if}}
+    {{#unless @root.useOptions}}
+    {{#if parameters}}
+    {{#each parameters}}
+     * @param {{{name}}} {{{description}}}
+    {{/each}}
+    {{/if}}
+    {{/unless}}
+     * @returns ApiRequestOptions the request options to fulfill a http request
+     * @throws ApiError
+     */
+    public {{{name}}}ApiRequestOptions({{>parameters}}): ApiRequestOptions {
+        return {
+            ...this.config,
             method: '{{{method}}}',
             path: `{{{path}}}`,
             {{#if parametersCookie}}
@@ -83,8 +128,7 @@ export class {{{name}}} {
                 {{/each}}
             },
             {{/if}}
-        });
-        return result.body;
+        };
     }
 
     {{/each}}
