@@ -1,3 +1,15 @@
+function formatSelector(s: any, v: any): [string, string] {
+    if (v instanceof Date) {
+        return [s, (v as Date).toISOString()];
+    } else if (Array.isArray(v)) {
+        return [s, Array(v).join(',')];
+    } else if (typeof v === 'object' && v.jsonPath) {
+        return formatSelector(`${v.jsonPath}.${s}`, v.value);
+    } else {
+        return [String(s), String(v)];
+    }
+};
+
 function getQueryString(params: Record<string, any>): string {
     const qs: string[] = [];
     Object.keys(params).forEach(key => {
@@ -20,16 +32,9 @@ function getQueryString(params: Record<string, any>): string {
                         }
                     }
                     default: {
-                        Object.entries(value).map(raw => {
-                            let val = '';
-                            if (raw[1] instanceof Date) {
-                                val = (raw[1] as Date).toISOString();
-                            } else if (Array.isArray(raw[1])) {
-                                val = Array(raw[1]).join(',');
-                            } else {
-                                val = String(raw[1]);
-                            }
-                            qs.push(`${encodeURIComponent(key)}.${encodeURIComponent(String(raw[0]))}=${encodeURIComponent(val)}`);
+                        Object.entries(value).forEach(x => {
+                            const [sel, val] = formatSelector(x[0], x[1]);
+                            qs.push(`${encodeURIComponent(key)}.${encodeURIComponent(sel)}=${encodeURIComponent(val)}`);
                         });
                     }
                 }

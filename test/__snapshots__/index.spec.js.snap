@@ -23,6 +23,33 @@ export class ApiError extends Error {
 }"
 `;
 
+exports[`v2 should generate: ./test/generated/v2/core/ApiOptions.ts 1`] = `
+"/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+import type { Resolver, Headers } from './ApiRequestOptions';
+
+export type ApiOptions = {
+    baseUrl: string;
+    version: string;
+    withCredentials: boolean;
+    token?: string | Resolver<string>;
+    username?: string | Resolver<string>;
+    password?: string | Resolver<string>;
+    defaultHeaders?: Headers | Resolver<Headers>;
+}
+
+export const DefaultApiOptions: ApiOptions = {
+    baseUrl: 'http://localhost:3000/base',
+    version: '1.0',
+    withCredentials: false,
+    token: undefined,
+    username: undefined,
+    password: undefined,
+    defaultHeaders: undefined,
+};"
+`;
+
 exports[`v2 should generate: ./test/generated/v2/core/ApiRequestOptions.ts 1`] = `
 "/* istanbul ignore file */
 /* tslint:disable */
@@ -2374,6 +2401,33 @@ export class ApiError extends Error {
         this.body = response.body;
     }
 }"
+`;
+
+exports[`v3 should generate: ./test/generated/v3/core/ApiOptions.ts 1`] = `
+"/* istanbul ignore file */
+/* tslint:disable */
+/* eslint-disable */
+import type { Resolver, Headers } from './ApiRequestOptions';
+
+export type ApiOptions = {
+    baseUrl: string;
+    version: string;
+    withCredentials: boolean;
+    token?: string | Resolver<string>;
+    username?: string | Resolver<string>;
+    password?: string | Resolver<string>;
+    defaultHeaders?: Headers | Resolver<Headers>;
+}
+
+export const DefaultApiOptions: ApiOptions = {
+    baseUrl: 'http://localhost:3000/base',
+    version: '1.0',
+    withCredentials: false,
+    token: undefined,
+    username: undefined,
+    password: undefined,
+    defaultHeaders: undefined,
+};"
 `;
 
 exports[`v3 should generate: ./test/generated/v3/core/ApiRequestOptions.ts 1`] = `

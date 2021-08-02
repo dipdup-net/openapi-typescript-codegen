@@ -20,7 +20,7 @@ export function getOperation(openApi: OpenApi, url: string, method: string, op: 
     const serviceName = op.tags?.[0] || 'Service';
     const serviceClassName = getServiceClassName(serviceName);
     const operationNameFallback = `${method}${serviceClassName}`;
-    const operationName = getOperationName(op.operationId || operationNameFallback);
+    const operationName = getOperationName(op.operationId?.replace(`${serviceName}_`, '') || operationNameFallback);
     const operationPath = getOperationPath(url);
 
     // Create a new operation object for this method.

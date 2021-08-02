@@ -2,14 +2,14 @@
     "name": "@baking-bad/openapi-typescript-codegen",
     "version": "0.9.3",
     "description": "Library that generates Typescript clients based on the OpenAPI specification.",
-    "author": "Ferdi Koomen",
-    "homepage": "https://github.com/ferdikoomen/openapi-typescript-codegen",
+    "author": "Ferdi Koomen <info@madebyferdi.com>",
+    "homepage": "https://github.com/dipdup-net/openapi-typescript-codegen",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/ferdikoomen/openapi-typescript-codegen.git"
+        "url": "git+https://github.com/dipdup-net/openapi-typescript-codegen.git"
     },
     "bugs": {
-        "url": "https://github.com/ferdikoomen/openapi-typescript-codegen/issues"
+        "url": "https://github.com/dipdup-net/openapi-typescript-codegen/issues"
     },
     "license": "MIT",
     "keywords": [
@@ -24,12 +24,6 @@
         "fetch",
         "xhr",
         "node"
-    ],
-    "maintainers": [
-        {
-            "name": "Ferdi Koomen",
-            "email": "info@madebyferdi.com"
-        }
     ],
     "main": "dist/index.js",
     "module": "dist/index.js",
