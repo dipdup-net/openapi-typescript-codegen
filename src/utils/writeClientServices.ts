@@ -6,7 +6,7 @@ import { writeFile } from './fileSystem';
 import { format } from './format';
 import { Templates } from './registerHandlebarTemplates';
 
-const VERSION_TEMPLATE_STRING = 'OpenAPI.VERSION';
+const VERSION_TEMPLATE_STRING = 'this.config.version';
 
 /**
  * Generate Services using the Handlebar template and write to disk.
