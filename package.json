@@ -1,5 +1,5 @@
 {
-    "name": "@baking-bad/openapi-typescript-codegen",
+    "name": "@dipdup/openapi-typescript-codegen",
     "version": "0.9.3",
     "description": "Library that generates Typescript clients based on the OpenAPI specification.",
     "author": "Ferdi Koomen <info@madebyferdi.com>",
