@@ -3,8 +3,12 @@ function formatSelector(s: any, v: any): [string, string] {
         return [s, (v as Date).toISOString()];
     } else if (Array.isArray(v)) {
         return [s, Array(v).join(',')];
-    } else if (typeof v === 'object' && v.jsonPath) {
-        return formatSelector(`${v.jsonPath}.${s}`, v.value);
+    } else if (typeof v === 'object' && v.jsonValue) {
+        if (v.jsonPath) {
+            return formatSelector(`${v.jsonPath}.${s}`, v.jsonValue);
+        } else {
+            return formatSelector(s, v.jsonValue);
+        }
     } else {
         return [String(s), String(v)];
     }
