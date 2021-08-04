@@ -1,3 +1,4 @@
+import { Mode } from 'fs';
 import type { Model } from '../../../client/interfaces/Model';
 import { getPattern } from '../../../utils/getPattern';
 import type { OpenApi } from '../interfaces/OpenApi';
@@ -10,6 +11,26 @@ import { getModelComposition } from './getModelComposition';
 import { getModelDefault } from './getModelDefault';
 import { getModelProperties } from './getModelProperties';
 import { getType } from './getType';
+
+export function baseModel(): Model {
+    return {
+        name: '',
+        export: 'interface',
+        type: 'any',
+        base: 'any',
+        template: null,
+        link: null,
+        description: null,
+        isDefinition: false,
+        isReadOnly: false,
+        isNullable: false,
+        isRequired: false,
+        imports: [],
+        enum: [],
+        enums: [],
+        properties: [],
+    };
+}
 
 export function getModel(openApi: OpenApi, definition: OpenApiSchema, isDefinition: boolean = false, name: string = ''): Model {
     const model: Model = {
@@ -43,6 +64,30 @@ export function getModel(openApi: OpenApi, definition: OpenApiSchema, isDefiniti
         enums: [],
         properties: [],
     };
+
+    if (definition['x-tzkt-jsonFilterType']) {
+        const valueRef = getType(definition['x-tzkt-jsonFilterType']);
+        const isArray = /array/.test(definition['x-tzkt-jsonFilterType']);
+        model.properties = [{
+            ...baseModel(),
+            name: 'jsonPath',
+            export: 'generic',
+            type: 'string',
+            base: 'string',
+            description: 'JSON path, if not specified the filter will be applied to the root'
+        }, {
+            ...baseModel(),
+            name: 'jsonValue',
+            export: isArray? 'array' : 'generic',
+            type: valueRef.type,
+            base: valueRef.base,
+            imports: valueRef.imports,
+            template: valueRef.template,
+            description: 'JSON value',
+            isRequired: true
+        }]
+        return model;
+    }
 
     if (definition.$ref) {
         const definitionRef = getType(definition.$ref);

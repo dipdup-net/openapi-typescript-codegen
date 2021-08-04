@@ -3,7 +3,7 @@ import { getPattern } from '../../../utils/getPattern';
 import type { OpenApi } from '../interfaces/OpenApi';
 import type { OpenApiParameter } from '../interfaces/OpenApiParameter';
 import { getComment } from './getComment';
-import { getModel } from './getModel';
+import { getModel, baseModel } from './getModel';
 import { getModelDefault } from './getModelDefault';
 import { getOperationParameterName } from './getOperationParameterName';
 import { getType } from './getType';
@@ -41,7 +41,28 @@ export function getOperationParameter(openApi: OpenApi, parameter: OpenApiParame
     }
 
     if (parameter.schema) {
-        if (parameter.schema.$ref) {
+        // For some reason NSwag does not allow extended data attribute on string parameter, hence this hack
+        if (parameter.name === 'anyof') {
+            const model = getModel(openApi, parameter.schema);
+            operationParameter.properties = [{
+                ...baseModel(),
+                name: 'fields',
+                export: 'array',
+                type: 'string',
+                base: 'string',
+                description: 'List of referenced field names, e.g. ["initiator", "sender"]',
+                isRequired: true
+            }, {
+                ...baseModel(),
+                name: 'value',
+                export: 'generic',
+                type: 'string',
+                base: 'string',
+                description: 'Value',
+                isRequired: true
+            }];
+            return operationParameter;
+        } else if (parameter.schema.$ref) {
             const model = getType(parameter.schema.$ref);
             operationParameter.export = 'reference';
             operationParameter.type = model.type;

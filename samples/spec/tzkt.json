@@ -17,7 +17,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:5000"
+      "url": "http://127.0.0.1:5000"
     }
   ],
   "paths": {
@@ -6399,12 +6399,8 @@
             "in": "query",
             "description": "Filters double baking operations by any of the specified fields. Example: `anyof.accuser.offender=tz1...` will return operations where `accuser` OR `offender` is equal to the specified value. This parameter is useful when you need to retrieve all operations associated with a specified account.",
             "schema": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/AnyOfParameter"
-                }
-              ]
+              "type": "string",
+              "nullable": true
             },
             "x-position": 1
           },
@@ -6670,12 +6666,8 @@
             "in": "query",
             "description": "Filters double endorsing operations by any of the specified fields. Example: `anyof.accuser.offender=tz1...` will return operations where `accuser` OR `offender` is equal to the specified value. This parameter is useful when you need to retrieve all operations associated with a specified account.",
             "schema": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/AnyOfParameter"
-                }
-              ]
+              "type": "string",
+              "nullable": true
             },
             "x-position": 1
           },
@@ -6941,12 +6933,8 @@
             "in": "query",
             "description": "Filters nonce revelation operations by any of the specified fields. Example: `anyof.baker.sender=tz1...` will return operations where `baker` OR `sender` is equal to the specified value. This parameter is useful when you need to retrieve all operations associated with a specified account.",
             "schema": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/AnyOfParameter"
-                }
-              ]
+              "type": "string",
+              "nullable": true
             },
             "x-position": 1
           },
@@ -7212,12 +7200,8 @@
             "in": "query",
             "description": "Filters delegations by any of the specified fields. Example: `anyof.prevDelegate.newDelegate=tz1...` will return operations where `prevDelegate` OR `newDelegate` is equal to the specified value. This parameter is useful when you need to retrieve all delegations associated with a specified account.",
             "schema": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/AnyOfParameter"
-                }
-              ]
+              "type": "string",
+              "nullable": true
             },
             "x-position": 1
           },
@@ -7525,12 +7509,8 @@
             "in": "query",
             "description": "Filters originations by any of the specified fields. Example: `anyof.sender.initiator=tz1...` will return operations where `sender` OR `initiator` is equal to the specified value. This parameter is useful when you need to retrieve all originations associated with a specified account.",
             "schema": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/AnyOfParameter"
-                }
-              ]
+              "type": "string",
+              "nullable": true
             },
             "x-position": 1
           },
@@ -7903,12 +7883,8 @@
             "in": "query",
             "description": "Filters transactions by any of the specified fields. Example: `anyof.sender.target=tz1...` will return operations where `sender` OR `target` is equal to the specified value. This parameter is useful when you need to retrieve all transactions associated with a specified account.",
             "schema": {
-              "nullable": true,
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/AnyOfParameter"
-                }
-              ]
+              "type": "string",
+              "nullable": true
             },
             "x-position": 1
           },
@@ -14745,191 +14721,70 @@
         "additionalProperties": false,
         "properties": {
           "eq": {
+            "type": "string",
             "description": "**Equal** filter mode (optional, i.e. `param.eq=123` is the same as `param=123`). \\\nSpecify a JSON value to get items where the specified field is equal to the specified value.\n\nExample: `?parameter.from=tz1...` or `?parameter.signatures.[3].[0]=null` or `?parameter.sigs.[*]=null`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "ne": {
+            "type": "string",
             "description": "**Not equal** filter mode. \\\nSpecify a JSON value to get items where the specified field is not equal to the specified value.\n\nExample: `?parameter.ne=true` or `?parameter.amount.ne=0`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "gt": {
+            "type": "string",
             "description": "**Greater than** filter mode. \\\nSpecify a string to get items where the specified field is greater than the specified value.\nNote that all stored JSON values are strings, so this will be a comparison of two strings, so we recommend comparing values of the same type,\ne.g. numeric strings with numeric strings (`parameter.number.gt=123`), datetime strings with datetime strings (`parameter.date.gt=2021-01-01`), etc.\nOtherwise, result may surprise you.\n\nExample: `?parameter.balance.gt=1234` or `?parameter.time.gt=2021-02-01`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "ge": {
+            "type": "string",
             "description": "**Greater or equal** filter mode. \\\nSpecify a string to get items where the specified field is greater than equal to the specified value.\nNote that all stored JSON values are strings, so this will be a comparison of two strings, so we recommend comparing values of the same type,\ne.g. numeric strings with numeric strings (`parameter.number.gt=123`), datetime strings with datetime strings (`parameter.date.gt=2021-01-01`), etc.\nOtherwise, result may surprise you.\n\nExample: `?parameter.balance.ge=1234` or `?parameter.time.ge=2021-02-01`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "lt": {
+            "type": "string",
             "description": "**Less than** filter mode. \\\nSpecify a string to get items where the specified field is less than the specified value.\nNote that all stored JSON values are strings, so this will be a comparison of two strings, so we recommend comparing values of the same type,\ne.g. numeric strings with numeric strings (`parameter.number.gt=123`), datetime strings with datetime strings (`parameter.date.gt=2021-01-01`), etc.\nOtherwise, result may surprise you.\n\nExample: `?parameter.balance.lt=1234` or `?parameter.time.lt=2021-02-01`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "le": {
+            "type": "string",
             "description": "**Less or equal** filter mode. \\\nSpecify a string to get items where the specified field is less than or equal to the specified value.\nNote that all stored JSON values are strings, so this will be a comparison of two strings, so we recommend comparing values of the same type,\ne.g. numeric strings with numeric strings (`parameter.number.gt=123`), datetime strings with datetime strings (`parameter.date.gt=2021-01-01`), etc.\nOtherwise, result may surprise you.\n\nExample: `?parameter.balance.le=1234` or `?parameter.time.le=2021-02-01`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "as": {
+            "type": "string",
             "description": "**Same as** filter mode. \\\nSpecify a string template to get items where the specified field matches the specified template. \\\nThis mode supports wildcard `*`. Use `\\*` as an escape symbol.\n\nExample: `?parameter.as=*mid*` or `?parameter.as=*end`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "un": {
+            "type": "string",
             "description": "**Unlike** filter mode. \\\nSpecify a string template to get items where the specified field doesn't match the specified template.\nThis mode supports wildcard `*`. Use `\\*` as an escape symbol.\n\nExample: `?parameter.un=*mid*` or `?parameter.un=*end`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "string"
           },
           "in": {
+            "type": "string",
             "description": "**In list** (any of) filter mode. \\\nSpecify a comma-separated list of strings or JSON array to get items where the specified field is equal to one of the specified values. \\\n\nExample: `?parameter.amount.in=1,2,3` or `?parameter.in=[{\"from\":\"tz1\",\"to\":\"tz2\"},{\"from\":\"tz2\",\"to\":\"tz1\"}]`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringListFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "array[string]"
           },
           "ni": {
+            "type": "string",
             "description": "**Not in list** (none of) filter mode. \\\nSpecify a comma-separated list of strings to get items where the specified field is not equal to all the specified values. \\\nUse `\\,` as an escape symbol.\n\nExample: `?parameter.amount.ni=1,2,3` or `?parameter.ni=[{\"from\":\"tz1\",\"to\":\"tz2\"},{\"from\":\"tz2\",\"to\":\"tz1\"}]`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterStringListFilter"
-              }
-            ]
+            "x-tzkt-jsonFilterType": "array[string]"
           },
           "null": {
+            "type": "string",
             "description": "**Is null** filter mode. \\\nUse this mode to get items where the specified field is null or not.\n\nExample: `?parameter.null` or `?parameter.null=false` or `?parameter.sigs.[0].null=false`.",
             "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/JsonParameterBoolFilter"
-              }
-            ]
-          }
-        }
-      },
-      "JsonParameterStringFilter": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/JsonParameterFilterOfString"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false
-          }
-        ]
-      },
-      "JsonParameterFilterOfString": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "jsonPath",
-          "value"
-        ],
-        "properties": {
-          "jsonPath": {
-            "type": "string",
-            "minLength": 1
-          },
-          "value": {
-            "type": "string",
-            "minLength": 1
-          }
-        }
-      },
-      "JsonParameterStringListFilter": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/JsonParameterFilterOfIEnumerableOfString"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false
-          }
-        ]
-      },
-      "JsonParameterFilterOfIEnumerableOfString": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "jsonPath",
-          "value"
-        ],
-        "properties": {
-          "jsonPath": {
-            "type": "string",
-            "minLength": 1
-          },
-          "value": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        }
-      },
-      "JsonParameterBoolFilter": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/JsonParameterFilterOfBoolean"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false
-          }
-        ]
-      },
-      "JsonParameterFilterOfBoolean": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "jsonPath",
-          "value"
-        ],
-        "properties": {
-          "jsonPath": {
-            "type": "string",
-            "minLength": 1
-          },
-          "value": {
-            "type": "boolean"
+            "x-tzkt-jsonFilterType": "boolean"
           }
         }
       },
@@ -16367,26 +16222,6 @@
             "items": {
               "type": "string"
             }
-          }
-        }
-      },
-      "AnyOfParameter": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "fields",
-          "value"
-        ],
-        "properties": {
-          "fields": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "value": {
-            "type": "string",
-            "minLength": 1
           }
         }
       },
